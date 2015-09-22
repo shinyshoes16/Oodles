@@ -126,12 +126,12 @@
           }
           // Set the return URL depending on the runtime environment
 	  var return_to = getQueryParam('return_to', 'pebblejs://close#');
-	  document.location = return_to + encodeURIComponent(JSON.stringify(encodeURIComponent(ls_pto)));
+	  
           
           //var location = "pebblejs://close#" + encodeURIComponent(ls_pto);
-          console.log("Warping to: " + location);
+          console.log("Warping to: " + return_to + encodeURIComponent(JSON.stringify(encodeURIComponent(ls_pto))));
           console.log(location);
-          document.location = location;
+          document.location = return_to + encodeURIComponent(JSON.stringify(encodeURIComponent(ls_pto)));
         });
        });
     </script>

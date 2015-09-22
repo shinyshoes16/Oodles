@@ -121,6 +121,30 @@
 -        <input type="button" value="Set Color" onclick="eval('f = ' + document.getElementById('input').value); f.h ? c.setHsv(f) : f.r ? c.setRgb(f) : c.setHex(f);" />
 -
 -        <!-- second color picker -->
+-        <div id="picker2" class="picker"></div>
+-        <div id="slide2" class="slide"></div>
+-        <div id="color2" class="color">#ff0000</div>
+-
+-        <script>
+-            c = ColorPicker(document.getElementById('slide'),
+-                        document.getElementById('picker'),
+-                        function(hex, hsv, rgb, mousePicker, mouseSlide) {
+-                            ColorPicker.positionIndicators(
+-                                document.getElementById('indicator-slide'), 
+-                                document.getElementById('indicator-picker'),
+-                                mouseSlide, mousePicker);
+-                            document.getElementById('color').innerHTML = hex;
+-                            document.getElementById('color').style.backgroundColor = hex;
+-                        });
+-            c.setRgb({ r: 55, g: 255, b: 80 });
+-
+-            ColorPicker(document.getElementById('slide2'),
+-                        document.getElementById('picker2'),
+-                        function(hex, hsv, rgb) { 
+-                            document.getElementById('color2').innerHTML = hex;
+-                            document.getElementById('color2').style.backgroundColor = hex;
+-                        });
+-        </script>
 <br />
 	  <div class="ui-body ui-body-c">
           <fieldset class="ui-grid-a">

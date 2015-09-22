@@ -43,6 +43,22 @@
       </div>
     </div>
     <script>
+    // Get query variables
+	function getQueryParam(variable, defaultValue) {
+	  // Find all URL parameters
+	  var query = location.search.substring(1);
+	  var vars = query.split('&');
+	  for (var i = 0; i < vars.length; i++) {
+	    var pair = vars[i].split('=');
+	
+	    // If the query variable parameter is found, decode it to use and return it for use
+	    if (pair[0] === variable) {
+	      return decodeURIComponent(pair[1]);
+	    }
+	  }
+	  return defaultValue || false;
+	}
+
       function saveOptions() {
         var options = {
           'tz_bool':         Number( $("input[name=manual_timezone]").is(":checked") ),
@@ -95,7 +111,9 @@
       
         $("#b-cancel").click(function() {
           console.log("Cancel");
-          document.location = "pebblejs://close";
+          // Set the return URL depending on the runtime environment
+	  var return_to = getQueryParam('return_to', 'pebblejs://close#Cancel');
+	  document.location = return_to + encodeURIComponent(JSON.stringify(encodeURIComponent(ls_pto)));
         });
 
         $("#b-submit").click(function() {
@@ -106,7 +124,11 @@
           if (typeof window.localStorage !== "undefined") {
             window.localStorage.sunset_watch_options = ls_pto;
           }
-          var location = "pebblejs://close#" + encodeURIComponent(ls_pto);
+          // Set the return URL depending on the runtime environment
+	  var return_to = getQueryParam('return_to', 'pebblejs://close#');
+	  document.location = return_to + encodeURIComponent(JSON.stringify(encodeURIComponent(ls_pto)));
+          
+          //var location = "pebblejs://close#" + encodeURIComponent(ls_pto);
           console.log("Warping to: " + location);
           console.log(location);
           document.location = location;
